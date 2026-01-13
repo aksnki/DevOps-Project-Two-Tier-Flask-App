@@ -8,7 +8,7 @@ pipeline{
         }
         stage('Build image') {
            steps {
-                sh 'docker build -t flask-app DevOps-Project-Two-Tier-Flask-App/flask-app'
+                 sh 'docker build -t flask-app DevOps-Project-Two-Tier-Flask-App'
             }
         }
         stage('Deploy with docker compose'){
