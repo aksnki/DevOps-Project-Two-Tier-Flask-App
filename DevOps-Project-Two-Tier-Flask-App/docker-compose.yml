@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   mysql:
     container_name: mysql
@@ -9,13 +7,10 @@ services:
       MYSQL_DATABASE: "devops"
     ports:
       - "3306:3306"
-
     volumes:
       - mysql_data:/var/lib/mysql
-
     networks:
       - two-tier-nt
-
     restart: always
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot","-proot"]
@@ -24,11 +19,10 @@ services:
       retries: 5
       start_period: 60s
 
-
   flask-app:
     container_name: two-tier-app
-    build:
-      context: .
+
+    image: flask-app:latest
 
     ports:
       - "5000:5000"
@@ -52,9 +46,3 @@ services:
       timeout: 5s
       retries: 5
       start_period: 60s
-
-volumes:
-  mysql_data:
-
-networks:
-  two-tier-nt:
