@@ -1,23 +1,27 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('Clone repo'){
-            steps{
-                git branch: 'main', url: 'https://github.com/aksnki/DevOps-Project-Two-Tier-Flask-App.git'
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
-        stage('Build image') {
-           steps {
-                 sh 'docker build -t flask-app DevOps-Project-Two-Tier-Flask-App'
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t flask-app DevOps-Project-Two-Tier-Flask-App'
             }
         }
-        stage('Deploy with docker compose'){
-            steps{
-               sh '''
-               cd DevOps-Project-Two-Tier-Flask-App
-               docker compose down || true
-               docker compose up -d
-                  '''
+
+        stage('Deploy with Docker Compose') {
+            steps {
+                sh '''
+                  cd DevOps-Project-Two-Tier-Flask-App
+                  docker compose down || true
+                  docker compose up -d
+                '''
             }
         }
     }
